@@ -1,16 +1,18 @@
 <script lang="ts">
-  import logo from '../assets/svelte.png';
-  import { Link } from 'svelte-navigator';
-  import LoginModal from './LoginModal.svelte';
-  import { user } from '../stores/user.store';
-  import Fa from 'svelte-fa/src/fa.svelte';
   import {
-    faUser,
     faRightFromBracket,
-    faR,
+    faSignInAlt,
+    faUser,
   } from '@fortawesome/free-solid-svg-icons';
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import { Link } from 'svelte-navigator';
+  import logo from '../assets/svelte.png';
+  import { user } from '../stores/user.store';
+  import LoginModal from './LoginModal.svelte';
+  import ProfileModal from './ProfileModal.svelte';
 
   let showLoginModal = false;
+  let showProfileModal = false;
 
   const openLoginModal = () => {
     showLoginModal = true;
@@ -18,6 +20,14 @@
 
   const closeLoginModal = () => {
     showLoginModal = false;
+  };
+
+  const openProfileModal = () => {
+    showProfileModal = true;
+  };
+
+  const closeProfileModal = () => {
+    showProfileModal = false;
   };
 
   const logout = () => {
@@ -52,10 +62,16 @@
       <button
         on:click={openLoginModal}
         class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2"
-        ><Fa icon={faUser} />
+        ><Fa icon={faSignInAlt} />
         Login</button
       >
     {:else}
+      <button
+        on:click={openProfileModal}
+        class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2"
+        ><Fa icon={faUser} />
+        Profile</button
+      >
       <button
         on:click={logout}
         class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2"
@@ -67,3 +83,5 @@
 </div>
 
 <LoginModal on:close={closeLoginModal} isModalOpen={showLoginModal} />
+
+<ProfileModal on:close={closeProfileModal} isModalOpen={showProfileModal} />

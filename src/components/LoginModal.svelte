@@ -5,6 +5,7 @@
 
   import moment from 'moment';
   import { createEventDispatcher } from 'svelte';
+  import GoogleSignIn from './GoogleSignIn.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -17,12 +18,12 @@
   $: canSubmit = Boolean(username && password);
   $: isDisabled = isLoading;
 
-  // TODO fetch + validation
   const login = async () => {
     if (!canSubmit) return;
 
     try {
       isLoading = true;
+      // TODO fetch + validation
       // const response = await fetch('https://dog.ceo/api/breeds/image/random');
       const response = await axios.get(
         'https://dog.ceo/api/breeds/image/random',
@@ -85,26 +86,32 @@
     </div>
   </div>
 
-  <div slot="footer" class="flex">
-    <button
-      class="btn btn-outline btn-primary mx-1 {isLoading
-        ? 'loading'
-        : ''} {!canSubmit ? 'btn-disabled' : ''}"
-      on:click|stopPropagation={login}
-    >
-      Submit
-    </button>
-    <button
-      class="btn btn-outline btn-accent mx-1 {isDisabled || isLoading
-        ? 'btn-disabled'
-        : ''}"
-      on:click|stopPropagation={() => {
-        if (!isDisabled) {
-          dispatch('close');
-        }
-      }}
-    >
-      Cancel
-    </button>
+  <div slot="footer" class="flex flex-col w-full">
+    <div class="flex justify-end">
+      <button
+        class="btn btn-outline btn-primary mx-1 {isLoading
+          ? 'loading'
+          : ''} {!canSubmit ? 'btn-disabled' : ''}"
+        on:click|stopPropagation={login}
+      >
+        Submit
+      </button>
+      <button
+        class="btn btn-outline btn-accent mx-1 {isDisabled || isLoading
+          ? 'btn-disabled'
+          : ''}"
+        on:click|stopPropagation={() => {
+          if (!isDisabled) {
+            dispatch('close');
+          }
+        }}
+      >
+        Cancel
+      </button>
+    </div>
+    <div class="divider">OR</div>
+    <div class="flex justify-center">
+      <GoogleSignIn on:success={() => dispatch('close')} />
+    </div>
   </div>
 </Modal>

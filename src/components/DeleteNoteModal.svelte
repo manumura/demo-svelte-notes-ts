@@ -1,21 +1,10 @@
 <script lang="ts">
-  // ---------------------------------------------------------
-  //  Global Imports
-  // ---------------------------------------------------------
   import Modal from '../components/Modal.svelte';
   import { createEventDispatcher } from 'svelte';
-
-  // ---------------------------------------------------------
-  //  Props
-  // ---------------------------------------------------------
 
   export let isModalOpen: boolean;
   export let id: number | undefined = undefined;
   export let title: string | undefined = undefined;
-
-  // ---------------------------------------------------------
-  //  Methods
-  // ---------------------------------------------------------
 
   const dispatch = createEventDispatcher();
 </script>
