@@ -1,17 +1,7 @@
 <script lang="ts">
-  // ---------------------------------------------------------
-  //  Global Imports
-  // ---------------------------------------------------------
-
-  import Fa from 'svelte-fa/src/fa.svelte';
-  import { faTimes } from '@fortawesome/free-solid-svg-icons';
   import { createEventDispatcher } from 'svelte';
 
   export let isModalOpen: boolean;
-
-  // ---------------------------------------------------------
-  //  Methods
-  // ---------------------------------------------------------
 
   const dispatch = createEventDispatcher();
 </script>

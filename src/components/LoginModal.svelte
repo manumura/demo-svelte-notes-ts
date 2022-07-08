@@ -1,13 +1,10 @@
 <script lang="ts">
   import axios from 'axios';
-  import Modal from './Modal.svelte';
   import { user } from '../stores/user.store';
+  import Modal from './Modal.svelte';
 
-  import { createEventDispatcher } from 'svelte';
   import moment from 'moment';
-  import LoadingSpinner from './LoadingSpinner.svelte';
-  import Loader from './Loader.svelte';
-  import LoadingMask from './LoadingMask.svelte';
+  import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
 

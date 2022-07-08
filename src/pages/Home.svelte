@@ -1,58 +1,17 @@
 <script lang="ts">
-  import { useFocus, useLocation, useNavigate } from 'svelte-navigator';
-
-  // ---------------------------------------------------------
-  //  Global Imports
-  // ---------------------------------------------------------
-
-  import Fa from 'svelte-fa/src/fa.svelte';
   import { faPlus } from '@fortawesome/free-solid-svg-icons';
-
-  // ---------------------------------------------------------
-  //  Type Imports
-  // ---------------------------------------------------------
-
-  import type { NoteType } from '../types/app';
+  import Fa from 'svelte-fa/src/fa.svelte';
+  import { useFocus,useLocation,useNavigate } from 'svelte-navigator';
+  import Note from '../components/Note.svelte';
   import { notes } from '../stores/notes.store';
   import { user } from '../stores/user.store';
-
-  // ---------------------------------------------------------
-  //  Component Imports
-  // ---------------------------------------------------------
-
-  import Note from '../components/Note.svelte';
-  // import DeleteNoteModal from '@/components/DeleteNoteModal.svelte';
-  // import EditNoteModal from '@/components/EditNoteModal.svelte';
-
-  // ---------------------------------------------------------
-  //  Varaible Declarations
-  // ---------------------------------------------------------
+  import type { NoteType } from '../types/app';
 
   const registerFocus = useFocus();
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ---------------------------------------------------------
-  //  Edit Modal Methods
-  // ---------------------------------------------------------
-
-  // For Editing
-  let noteToEdit: NoteType | Record<string, unknown> | undefined;
-  // let showEditModal = false;
-
-  /**
-   * Display the Note details modal
-   *
-   * @param {NoteType} note
-   */
   const openEditNote = (note?: NoteType) => {
-    noteToEdit = {};
-
-    if (note) {
-      noteToEdit = note;
-    }
-
-    // showEditModal = true
     if (note) {
       navigate(`/note/${note.id}`, {
         state: { from: $location.pathname },
@@ -66,70 +25,13 @@
     }
   };
 
-  /**
-   * Close the Note details modal
-   *
-   */
-  // const closeEditModal = () => {
-  //   noteToEdit = {};
-  //   showEditModal = false;
-  // };
-
-  // ---------------------------------------------------------
-  //  Delete Modal Methods
-  // ---------------------------------------------------------
-
-  // For Deleting
-  // let noteToDelete: NoteType | Record<string, unknown> | undefined;
-  // let showDeleteModal = false;
-
-  /**
-   * Display the Note details modal
-   *
-   * @param {NoteType} note
-   */
-  // const openDeleteNote = (event: CustomEvent) => {
-  //   const deleteNoteIndex = event.detail as number;
-
-  //   const noteIndex = $notes.findIndex((item) => item.id === deleteNoteIndex);
-
-  //   if (noteIndex !== -1) {
-  //     noteToDelete = notes[noteIndex];
-  //     showDeleteModal = true;
-  //   }
-  // };
-
-  /**
-   * Close the Note details modal
-   *
-   */
-  // const closeDeleteModal = () => {
-  //   noteToDelete = {};
-  //   showDeleteModal = false;
-  // };
-
-  // ---------------------------------------------------------
-  //  Note Related Methods
-  // ---------------------------------------------------------
-
-  /**
-   * Save notes in the local storage
-   */
   const saveNotesToStorage = () => {
     // for reactivity purposes
     $notes = $notes;
 
-    // save it in the local storage
     localStorage.setItem('notes', JSON.stringify($notes));
   };
 
-  /**
-   * Toggle the favorite flag of a given post
-   * and save the changes to local storage
-   *
-   * @param {CustomEvent} event
-   * @param {Number} event.detail
-   */
   const toggleFavorite = (event: CustomEvent) => {
     const noteId: number = event.detail as number;
 
@@ -141,46 +43,6 @@
       saveNotesToStorage();
     }
   };
-
-  /**
-   * Update the eixting note or add the new note
-   *
-   * @param {CustomEvent} event
-   * @NoteType {Number} event.detail
-   */
-  // const saveNote = (event: CustomEvent) => {
-  //   closeEditModal();
-
-  //   const note = event.detail as NoteType;
-  //   const noteIndex = $notes.findIndex((item) => item.id === note.id);
-
-  //   if (noteIndex !== -1) {
-  //     $notes[noteIndex] = note;
-  //   } else {
-  //     $notes.push(note);
-  //   }
-
-  //   saveNotesToStorage();
-  // };
-
-  /**
-   *
-   * @param {CustomEvent} event
-   * @param {Number} event.detail
-   */
-  // const deleteNote = (event: CustomEvent) => {
-  //   closeDeleteModal();
-  //   closeEditModal();
-
-  //   const deleteNoteIndex = event.detail as number;
-  //   const noteIndex = $notes.findIndex((item) => item.id === deleteNoteIndex);
-
-  //   if (noteIndex !== -1) {
-  //     $notes.splice(noteIndex, 1);
-  //   }
-
-  //   saveNotesToStorage();
-  // };
 
   $: cursorStyle = $user ? 'pointer' : 'not-allowed';
 </script>
@@ -211,22 +73,6 @@
   </div>
 </main>
 
-<!-- {#if showEditModal}
-  <EditNoteModal
-    {...noteToEdit}
-    on:save={saveNote}
-    on:delete={openDeleteNote}
-    on:close={closeEditModal}
-  />
-{/if} -->
-
-<!-- {#if showDeleteModal}
-  <DeleteNoteModal
-    {...noteToDelete}
-    on:delete={deleteNote}
-    on:close={closeDeleteModal}
-  />
-{/if} -->
 <style lang="scss">
   main {
     padding: 2em;
