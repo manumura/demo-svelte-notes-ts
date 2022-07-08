@@ -85,9 +85,9 @@
     </div>
   </div>
 
-  <div slot="footer">
+  <div slot="footer" class="flex">
     <button
-      class="btn btn-outline btn-primary {isLoading
+      class="btn btn-outline btn-primary mx-1 {isLoading
         ? 'loading'
         : ''} {!canSubmit ? 'btn-disabled' : ''}"
       on:click|stopPropagation={login}
@@ -95,7 +95,7 @@
       Submit
     </button>
     <button
-      class="btn btn-outline btn-accent {isDisabled || isLoading
+      class="btn btn-outline btn-accent mx-1 {isDisabled || isLoading
         ? 'btn-disabled'
         : ''}"
       on:click|stopPropagation={() => {

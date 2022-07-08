@@ -90,10 +90,15 @@
       content,
       date: moment().format('YYYYMMDDHHmmss'),
       isFavorite,
-      tags: tagString
-        .replace(/\s/g, '')
-        .split(',')
-        .filter((item) => item),
+      tags: [
+        // remove duplicates
+        ...new Set(
+          tagString
+            .replace(/\s/g, '')
+            .split(',')
+            .filter((item) => item),
+        ),
+      ],
     };
 
     if (noteIndex !== -1) {
@@ -247,7 +252,7 @@
                   : 'sm:col-span-6'} text-right"
               >
                 <button
-                  class="btn btn-outline btn-primary {!canSave
+                  class="btn btn-outline btn-primary mx-1 {!canSave
                     ? 'btn-disabled'
                     : ''}"
                   on:click={() => saveNote()}
@@ -255,7 +260,7 @@
                   Save
                 </button>
                 <button
-                  class="btn btn-outline btn-ghost"
+                  class="btn btn-outline btn-ghost mx-1"
                   on:click={() => cancel()}
                 >
                   Cancel

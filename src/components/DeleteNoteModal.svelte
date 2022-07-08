@@ -28,15 +28,15 @@
     Are you sure you want to delete this note "{title}" ?
   </div>
 
-  <div slot="footer" class="modal-footer">
+  <div slot="footer" class="flex">
     <button
-      class="btn btn-outline btn-accent"
+      class="btn btn-outline btn-accent mx-1"
       on:click|stopPropagation={() => dispatch('delete', id)}
     >
       Delete
     </button>
     <button
-      class="btn btn-outline btn-ghost"
+      class="btn btn-outline btn-ghost mx-1"
       on:click|stopPropagation={() => dispatch('close')}
     >
       Cancel
