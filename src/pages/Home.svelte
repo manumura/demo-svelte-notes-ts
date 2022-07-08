@@ -1,7 +1,7 @@
 <script lang="ts">
   import { faPlus } from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa/src/fa.svelte';
-  import { useFocus,useLocation,useNavigate } from 'svelte-navigator';
+  import { useFocus, useLocation, useNavigate } from 'svelte-navigator';
   import Note from '../components/Note.svelte';
   import { notes } from '../stores/notes.store';
   import { user } from '../stores/user.store';
@@ -47,17 +47,17 @@
   $: cursorStyle = $user ? 'pointer' : 'not-allowed';
 </script>
 
-<main>
-  <div class="note-card-container">
+<main class="w-screen m-0 m-auto p-2 box-border">
+  <div class="flex" on:click>
     <div
-      class="note-card-add"
+      class="card w-96 bg-base-100 shadow-xl mx-2 justify-center items-center bg-gray-300 border-4 border-dashed border-gray-500 hover:bg-gray-200"
       style="cursor: {cursorStyle}"
       on:click={() => {
         openEditNote();
       }}
       use:registerFocus
     >
-      <Fa icon={faPlus} color="#afaeae" size="3x" />
+      <Fa icon={faPlus} color="#696969" size="3x" />
     </div>
 
     {#each $notes as note (note.id)}
@@ -72,38 +72,3 @@
     {/each}
   </div>
 </main>
-
-<style lang="scss">
-  main {
-    padding: 2em;
-    margin: 0 auto;
-    width: 100vw;
-    box-sizing: border-box;
-  }
-
-  .note-card {
-    &-add {
-      background-color: #d6d4d4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: none;
-      border: 4px dashed #a29f9f;
-      width: 144px;
-      height: 189px;
-      color: #a29f9f;
-      margin-right: 15px;
-      padding: 15px;
-      border-radius: 10px;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #c5c5c5;
-      }
-    }
-
-    &-container {
-      display: flex;
-    }
-  }
-</style>

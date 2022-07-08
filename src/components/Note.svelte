@@ -25,7 +25,10 @@
   };
 </script>
 
-<div class="card w-96 bg-base-100 shadow-xl mx-2 cursor-style" on:click>
+<div
+  class="card w-96 bg-base-100 shadow-xl mx-2 cursor-style hover:bg-gray-100"
+  on:click
+>
   <div class="card-body">
     <h2 class="card-title">{title}</h2>
     <p>{trimContent(content)}</p>
