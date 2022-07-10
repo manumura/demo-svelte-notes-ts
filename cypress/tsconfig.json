@@ -1,0 +1,15 @@
+{
+    // Extend the *server's* tsconfig, because we import server libs in Cypress tasks
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        // "outDir": "../dist/cypress",
+        "noEmit": true,
+        "target": "es2020",
+        "lib": ["es2020", "dom"],
+        "types": ["cypress", "node", "@testing-library/cypress"]
+    },
+    // The 'exclude' line is necessary to override the root tsconfig's exclusion of the server code
+    "exclude": [],
+    "include": ["**/*.ts", "../cypress.config.ts"],
+    "files": ["../cypress.config.ts"],
+}

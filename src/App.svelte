@@ -8,7 +8,7 @@
   import { Route, Router } from 'svelte-navigator';
   import PrivateRoute from './components/PrivateRoute.svelte';
 
-  let notesJSONString: string = localStorage.getItem('notes');
+  let notesJSONString: string | null = localStorage.getItem('notes');
   let initNotes: NoteType[] = [];
 
   // Notes initialization

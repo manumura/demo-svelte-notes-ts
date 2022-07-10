@@ -31,7 +31,7 @@
   };
 
   const logout = () => {
-    $user = null;
+    $user = undefined;
   };
 </script>
 

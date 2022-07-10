@@ -1,7 +1,9 @@
 module.exports = {
+  root: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
     sourceType: 'module',
+    ecmaVersion: 2020,
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.eslint.json'],
     extraFileExtensions: ['.svelte'],
@@ -15,8 +17,10 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'prettier',
   ],
   plugins: ['svelte3', '@typescript-eslint'],
+  ignorePatterns: ['*.cjs'],
   overrides: [
     {
       files: ['*.svelte'],
@@ -26,8 +30,11 @@ module.exports = {
   rules: {
     // override/add rules settings here, such as:
   },
+  // settings: {
+  //   'svelte3/typescript': true,
+  //   'svelte3/ignore-styles': () => true,
+  // },
   settings: {
-    'svelte3/typescript': true,
-    'svelte3/ignore-styles': () => true,
+    'svelte3/typescript': () => require('typescript'),
   },
 };

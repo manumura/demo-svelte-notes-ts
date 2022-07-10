@@ -23,12 +23,10 @@
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log('note id: ', id);
-  const noteId = +id; // convert to number
+  const noteId = id ? +id : undefined; // convert to number
   const note = $notes.find((note) => note.id === noteId);
   const noteIndex = $notes.findIndex((item) => item.id === noteId);
 
-  console.log('note: ', note);
   if (id && !note) {
     console.log('navigate away');
     navigate('/', {
@@ -86,10 +84,10 @@
     const newNoteId = noteId ? noteId : moment().valueOf();
     const newNote = {
       id: newNoteId,
-      title,
-      content,
+      title: title!,
+      content: content!,
       date: moment().format('YYYYMMDDHHmmss'),
-      isFavorite,
+      isFavorite: isFavorite !== undefined ? isFavorite : false,
       tags: [
         // remove duplicates
         ...new Set(
