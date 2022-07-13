@@ -160,10 +160,7 @@
     <div class="md:grid md:grid-cols-6 md:gap-6">
       <div class="md:col-span-1">
         <div class="px-4 sm:px-0">
-          <h3
-            class="text-lg font-medium leading-6 text-gray-900"
-            use:registerFocus
-          >
+          <h3 class="text-lg font-medium leading-6 text-gray-900" use:registerFocus>
             {id ? 'Edit' : 'Create'} a Note
           </h3>
           <p class="mt-1 text-sm text-gray-600">Please input the details.</p>
@@ -175,10 +172,7 @@
           <div class="px-4 py-5 bg-white sm:p-6">
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-3">
-                <label
-                  for="note-title"
-                  class="block text-sm font-medium text-gray-700">Title</label
-                >
+                <label for="note-title" class="block text-sm font-medium text-gray-700">Title</label>
                 <input
                   bind:value={title}
                   type="text"
@@ -189,10 +183,7 @@
               </div>
 
               <div class="col-span-6 sm:col-span-3">
-                <label
-                  for="note-tags"
-                  class="block text-sm font-medium text-gray-700">Tags</label
-                >
+                <label for="note-tags" class="block text-sm font-medium text-gray-700">Tags</label>
                 <input
                   bind:value={tagString}
                   type="text"
@@ -203,12 +194,7 @@
               </div>
 
               <div class="col-span-6 sm:col-span-6">
-                <label
-                  for="note-content"
-                  class="block text-sm font-medium text-gray-700"
-                >
-                  Content
-                </label>
+                <label for="note-content" class="block text-sm font-medium text-gray-700"> Content </label>
                 <div class="mt-1">
                   <textarea
                     bind:this={contentTextarea}
@@ -221,9 +207,7 @@
                     placeholder="Your note content"
                   />
                 </div>
-                <p class="mt-1 text-xs text-gray-500">
-                  Brief description for your note.
-                </p>
+                <p class="mt-1 text-xs text-gray-500">Brief description for your note.</p>
               </div>
 
               {#if date}
@@ -236,33 +220,17 @@
 
               {#if id}
                 <div class="col-span-6 sm:col-span-3">
-                  <button
-                    class="btn btn-outline btn-accent"
-                    on:click={() => openDeleteModal()}
-                  >
-                    Delete
-                  </button>
+                  <button class="btn btn-outline btn-accent" on:click={() => openDeleteModal()}> Delete </button>
                 </div>
               {/if}
-              <div
-                class="col-span-6 {id
-                  ? 'sm:col-span-3'
-                  : 'sm:col-span-6'} text-right"
-              >
+              <div class="col-span-6 {id ? 'sm:col-span-3' : 'sm:col-span-6'} text-right">
                 <button
-                  class="btn btn-outline btn-primary mx-1 {!canSave
-                    ? 'btn-disabled'
-                    : ''}"
+                  class="btn btn-outline btn-primary mx-1 {!canSave ? 'btn-disabled' : ''}"
                   on:click={() => saveNote()}
                 >
                   Save
                 </button>
-                <button
-                  class="btn btn-outline btn-ghost mx-1"
-                  on:click={() => cancel()}
-                >
-                  Cancel
-                </button>
+                <button class="btn btn-outline btn-ghost mx-1" on:click={() => cancel()}> Cancel </button>
               </div>
             </div>
           </div>
@@ -272,9 +240,4 @@
   </div>
 </div>
 
-<DeleteNoteModal
-  {...note}
-  on:delete={deleteNote}
-  on:close={closeDeleteModal}
-  isModalOpen={showDeleteModal}
-/>
+<DeleteNoteModal {...note} on:delete={deleteNote} on:close={closeDeleteModal} isModalOpen={showDeleteModal} />

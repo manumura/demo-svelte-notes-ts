@@ -1,9 +1,5 @@
 <script lang="ts">
-  import {
-    faRightFromBracket,
-    faSignInAlt,
-    faUser,
-  } from '@fortawesome/free-solid-svg-icons';
+  import { faRightFromBracket, faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa/src/fa.svelte';
   import { Link } from 'svelte-navigator';
   import logo from '../assets/svelte.png';
@@ -38,43 +34,37 @@
 <div class="navbar bg-base-100">
   <div class="flex-none">
     <div class="h-16 ml-auto">
-      <img
-        class="rounded-full border border-gray-100 shadow-sm h-full"
-        src={logo}
-        alt="Svelte Logo"
-      />
+      <img class="rounded-full border border-gray-100 shadow-sm h-full" src={logo} alt="Svelte Logo" />
     </div>
   </div>
   <div class="flex-1">
     <div class="normal-case text-xl ml-5 font-bold">Notes App</div>
     <div class="normal-case text-xl ml-5">
-      <Link to="/" class="nav-link">My Notes</Link>
+      <Link to="/">My Notes</Link>
     </div>
 
     {#if $user}
       <div class="normal-case text-xl ml-5">
-        <Link to="/note" class="nav-link">Create a Note</Link>
+        <Link to="/note">Create a Note</Link>
       </div>
     {/if}
+
+    <button class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg ml-5">
+      <Link to="/accounts">Accounts</Link></button
+    >
   </div>
   <div class="flex-none mr-5">
     {#if !$user}
-      <button
-        on:click={openLoginModal}
-        class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2"
+      <button on:click={openLoginModal} class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2"
         ><Fa icon={faSignInAlt} />
         Login</button
       >
     {:else}
-      <button
-        on:click={openProfileModal}
-        class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2"
+      <button on:click={openProfileModal} class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2"
         ><Fa icon={faUser} />
         Profile</button
       >
-      <button
-        on:click={logout}
-        class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2"
+      <button on:click={logout} class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg gap-2"
         ><Fa icon={faRightFromBracket} />
         Logout</button
       >

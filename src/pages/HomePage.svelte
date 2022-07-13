@@ -2,16 +2,16 @@
   import { faPlus } from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa/src/fa.svelte';
   import { useFocus, useLocation, useNavigate } from 'svelte-navigator';
-  import Note from '../components/Note.svelte';
+  import NoteCard from '../components/NoteCard.svelte';
   import { notes } from '../stores/notes.store';
   import { user } from '../stores/user.store';
-  import type { NoteType } from '../types/app';
+  import type { Note } from '../types/app';
 
   const registerFocus = useFocus();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const openEditNote = (note?: NoteType) => {
+  const openEditNote = (note?: Note) => {
     if (note) {
       navigate(`/note/${note.id}`, {
         state: { from: $location.pathname },
@@ -61,7 +61,7 @@
     </div>
 
     {#each $notes as note (note.id)}
-      <Note
+      <NoteCard
         {...note}
         on:click={() => {
           openEditNote(note);

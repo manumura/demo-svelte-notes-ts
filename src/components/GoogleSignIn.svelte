@@ -42,12 +42,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 </svelte:head>
 
-<div
-  id="g_id_onload"
-  data-client_id="<CLIENT_ID>"
-  data-callback="handleCredentialResponse"
-  data-auto_prompt="false"
-/>
+<div id="g_id_onload" data-client_id="<CLIENT_ID>" data-callback="handleCredentialResponse" data-auto_prompt="false" />
 <div
   class="g_id_signin"
   data-type="standard"

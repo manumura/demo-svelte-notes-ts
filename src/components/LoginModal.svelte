@@ -25,9 +25,7 @@
       isLoading = true;
       // TODO fetch + validation
       // const response = await fetch('https://dog.ceo/api/breeds/image/random');
-      const response = await axios.get(
-        'https://dog.ceo/api/breeds/image/random',
-      );
+      const response = await axios.get('https://dog.ceo/api/breeds/image/random');
       const data = await response.data;
       await sleep(3000);
       isLoading = false;
@@ -89,17 +87,13 @@
   <div slot="footer" class="flex flex-col w-full">
     <div class="flex justify-end">
       <button
-        class="btn btn-outline btn-primary mx-1 {isLoading
-          ? 'loading'
-          : ''} {!canSubmit ? 'btn-disabled' : ''}"
+        class="btn btn-outline btn-primary mx-1 {isLoading ? 'loading' : ''} {!canSubmit ? 'btn-disabled' : ''}"
         on:click|stopPropagation={login}
       >
         Submit
       </button>
       <button
-        class="btn btn-outline btn-accent mx-1 {isDisabled || isLoading
-          ? 'btn-disabled'
-          : ''}"
+        class="btn btn-outline btn-accent mx-1 {isDisabled || isLoading ? 'btn-disabled' : ''}"
         on:click|stopPropagation={() => {
           if (!isDisabled) {
             dispatch('close');

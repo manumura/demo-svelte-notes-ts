@@ -1,20 +1,25 @@
 <script lang="ts">
-  import Home from './pages/Home.svelte';
+  import HomePage from './pages/HomePage.svelte';
   import Header from './components/Header.svelte';
-  import EditNote from './pages/EditNote.svelte';
+  import EditNotePage from './pages/EditNotePage.svelte';
   import { notes } from './stores/notes.store';
-  import type { NoteType } from './types/app';
+  import type { Note } from './types/app';
 
   import { Route, Router } from 'svelte-navigator';
   import PrivateRoute from './components/PrivateRoute.svelte';
+  import AccountsPage from './pages/AccountsPage.svelte';
 
   let notesJSONString: string | null = localStorage.getItem('notes');
-  let initNotes: NoteType[] = [];
+  let initNotes: Note[] = [];
+
+  // TODO css responsive
+  // https://www.section.io/engineering-education/creating-a-responsive-navigation-bar-using-tailwind-css-and-javascript/
+  // https://www.geeksforgeeks.org/how-to-change-the-background-color-of-the-active-nav-item/
 
   // Notes initialization
   if (notesJSONString) {
     try {
-      initNotes = JSON.parse(notesJSONString) as NoteType[];
+      initNotes = JSON.parse(notesJSONString) as Note[];
     } catch (err) {
       console.error(err);
     }
@@ -54,14 +59,16 @@
 <Router>
   <Header />
 
-  <Route path="/" component={Home} />
+  <Route path="/" component={HomePage} />
+
+  <Route path="/accounts" component={AccountsPage} />
 
   <PrivateRoute path="note">
-    <EditNote />
+    <EditNotePage />
   </PrivateRoute>
 
   <PrivateRoute path="note/:id" let:params>
-    <EditNote id={params.id} />
+    <EditNotePage id={params.id} />
   </PrivateRoute>
 </Router>
 
