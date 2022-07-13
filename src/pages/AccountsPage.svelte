@@ -1,16 +1,22 @@
 <script lang="ts">
   import { EventStreamContentType, fetchEventSource } from '@microsoft/fetch-event-source';
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { FatalError, RetriableError, type Account } from '../types/app';
 
-  let isLoading = false;
+  export let location;
+  export let navigate;
+
   let accounts: Account[] = [];
+  const abortController = new AbortController();
 
   const findAccounts = async () => {
+    console.log('find accounts');
+    const maxRetries = 10;
+    let retryCount = 0;
+
     await fetchEventSource('http://localhost:8080/api/stream/accounts', {
+      signal: abortController.signal,
       async onopen(response) {
-        console.log('on open response: ', response);
-        console.log(response.headers.get('content-type'));
         if (response.ok && response.headers.get('content-type')?.startsWith(EventStreamContentType)) {
           // everything's good
           return;
@@ -30,7 +36,6 @@
           throw new FatalError(message.data);
         }
 
-        console.log(message.data);
         const account: Account = JSON.parse(message.data);
         const index = accounts.findIndex((a) => a.id == account.id);
         if (index === -1) {
@@ -45,27 +50,59 @@
         throw new RetriableError();
       },
       onerror(error) {
-        console.error(error);
+        console.error('Fetch event source error: ', error);
         if (error instanceof FatalError) {
           // rethrow to stop the operation
           throw error;
         } else {
           // do nothing to automatically retry. You can also return a specific retry interval here.
+          if (retryCount >= maxRetries) {
+            console.error('Max retries reached: closing stream');
+            throw error;
+          }
+          retryCount++;
+          console.error('retry count: ', retryCount);
         }
       },
     });
   };
 
+  const abort = () => {
+    console.log('onDestroy');
+    abortController.abort();
+  };
+
   onMount(findAccounts);
+
+  onDestroy(abort);
 </script>
 
-<h1>ACCOUNTS</h1>
-{#if isLoading}
-  <h1>LOADING</h1>
-{:else}
-  <ul>
-    {#each accounts as account, i}
-      <li>{account.id} {account.name}</li>
-    {/each}
-  </ul>
-{/if}
+<div class="m-0 m-auto p-5 box-border">
+  <h1>ACCOUNTS</h1>
+
+  {#if accounts.length <= 0}
+    <h2>NO ACCOUNTS FOUND</h2>
+  {:else}
+    <div class="overflow-x-auto">
+      <table class="table table-zebra">
+        <!-- head -->
+        <thead>
+          <tr>
+            <th />
+            <th>ID</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each accounts as account, i}
+            <tr>
+              <th>{i + 1}</th>
+              <td>{account.id}</td>
+              <td>{account.name}</td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    </div>
+  {/if}
+</div>
