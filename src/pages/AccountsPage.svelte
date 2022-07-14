@@ -1,15 +1,17 @@
 <script lang="ts">
-  import { EventStreamContentType, fetchEventSource } from '@microsoft/fetch-event-source';
   import { onMount, onDestroy } from 'svelte';
+  import { blur, crossfade, draw, fade, fly, scale, slide } from 'svelte/transition';
+  import { EventStreamContentType, fetchEventSource } from '@microsoft/fetch-event-source';
   import { FatalError, RetriableError, type Account } from '../types/app';
+  import { accounts } from '../stores/accounts.store';
 
   export let location;
   export let navigate;
 
-  let accounts: Account[] = [];
+  // let accounts: Account[] = [];
   const abortController = new AbortController();
 
-  const findAccounts = async () => {
+  const subscribeAccounts = async () => {
     console.log('find accounts');
     const maxRetries = 10;
     let retryCount = 0;
@@ -36,14 +38,19 @@
           throw new FatalError(message.data);
         }
 
-        const account: Account = JSON.parse(message.data);
-        const index = accounts.findIndex((a) => a.id == account.id);
-        if (index === -1) {
-          accounts = [...accounts, account];
-        } else {
-          accounts[index] = account;
-        }
-        accounts.sort((a, b) => a.id - b.id);
+        // TODO parse Date + replay
+        const account: Account = JSON.parse(message.data, (key, value) => {
+          if (typeof value === 'number') {
+            return value;
+          }
+          if (Date.parse(value)) {
+            console.log('value date: ', value);
+            // return new Date(Date.parse(v));
+          }
+          return value;
+        });
+        updateAccounts(account);
+        hightlightRow(account.id);
       },
       onclose() {
         // if the server closes the connection unexpectedly, retry:
@@ -72,37 +79,69 @@
     abortController.abort();
   };
 
-  onMount(findAccounts);
+  const updateAccounts = (account: Account) => {
+    const index = $accounts.findIndex((a) => a.id == account.id);
+    if (index === -1) {
+      $accounts = [...$accounts, account];
+    } else {
+      $accounts[index] = account;
+    }
+    $accounts.sort((a, b) => a.id - b.id);
+    return account;
+  };
+
+  const hightlightRow = (accountId: number) => {
+    const row = document.getElementById('account-' + accountId);
+    if (row) {
+      row.classList.add('highlight-row');
+      row.onanimationend = () => {
+        row.classList.remove('highlight-row');
+      };
+    }
+  };
+
+  onMount(subscribeAccounts);
 
   onDestroy(abort);
 </script>
 
-<div class="m-0 m-auto p-5 box-border">
-  <h1>ACCOUNTS</h1>
-
-  {#if accounts.length <= 0}
-    <h2>NO ACCOUNTS FOUND</h2>
-  {:else}
-    <div class="overflow-x-auto">
-      <table class="table table-zebra">
-        <!-- head -->
-        <thead>
-          <tr>
-            <th />
-            <th>ID</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {#each accounts as account, i}
-            <tr>
-              <th>{i + 1}</th>
-              <td>{account.id}</td>
-              <td>{account.name}</td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
+<div class="mt-4 mb-3">
+  <div class="relative rounded-xl overflow-hidden flex flex-col items-center justify-center">
+    <div><h1>ACCOUNTS</h1></div>
+    <div class="relative rounded-xl overflow-auto w-3/4">
+      <div class="shadow-sm overflow-auto my-8">
+        {#if $accounts.length <= 0}
+          <h2>NO ACCOUNTS FOUND</h2>
+        {:else}
+          <table class="border-collapse table-auto w-full text-sm">
+            <!-- head -->
+            <thead>
+              <tr class="bg-gray-200 highlight">
+                <th class="th-header">#</th>
+                <th class="th-header">ID</th>
+                <th class="th-header">NAME</th>
+                <th class="th-header">CREATED BY</th>
+                <th class="th-header">CREATED DATE</th>
+                <th class="th-header">LAST MODIFIED BY</th>
+                <th class="th-header">LAST MODIFIED DATE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {#each $accounts as account, i}
+                <tr id="account-{account.id}" class="odd:bg-white even:bg-gray-50">
+                  <td class="td-body">{i + 1}</td>
+                  <td class="td-body">{account.id}</td>
+                  <td class="td-body">{account.name}</td>
+                  <td class="td-body">{account.createdBy}</td>
+                  <td class="td-body">{account.createdDate}</td>
+                  <td class="td-body">{account.lastModifiedBy}</td>
+                  <td class="td-body">{account.lastModifiedDate}</td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        {/if}
+      </div>
     </div>
-  {/if}
+  </div>
 </div>

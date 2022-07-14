@@ -16,6 +16,10 @@ export interface User {
 export interface Account {
   id: number;
   name: string;
+  createdBy: string;
+  createdDate: Date;
+  lastModifiedBy: string;
+  lastModifiedDate: Date;
 }
 
 export class RetriableError extends Error {}
