@@ -5,7 +5,6 @@
   import { EventStreamContentType, fetchEventSource } from '@microsoft/fetch-event-source';
   import { FatalError, RetriableError, type Account } from '../types/app';
   import { accounts } from '../stores/accounts.store';
-  import LoadingMask from '../components/LoadingMask.svelte';
 
   // let accounts: Account[] = [];
   let isLoading = false;
@@ -125,7 +124,6 @@
     } else {
       $accounts[index] = account;
     }
-    // $accounts.sort((a, b) => a.id - b.id);
   };
 
   const hightlightRow = (accountId: number) => {
