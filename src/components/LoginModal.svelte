@@ -23,7 +23,6 @@
 
     try {
       isLoading = true;
-      // TODO fetch + validation
       // const response = await fetch('https://dog.ceo/api/breeds/image/random');
       const response = await axios.get('https://dog.ceo/api/breeds/image/random');
       const data = await response.data;
@@ -49,7 +48,7 @@
     }
   };
 
-  // TODO test
+  // TODO test to remove
   function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
