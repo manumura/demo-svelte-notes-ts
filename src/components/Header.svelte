@@ -49,9 +49,9 @@
       </div>
     {/if}
 
-    <button class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg ml-5">
-      <Link to="/accounts">Accounts</Link></button
-    >
+    <Link to="/accounts">
+      <button class="btn btn-ghost btn-xs sm:btn-sm md:btn-md lg:btn-lg ml-5"> Accounts</button>
+    </Link>
   </div>
   <div class="flex-none mr-5">
     {#if !$user}
