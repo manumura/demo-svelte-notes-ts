@@ -2,7 +2,7 @@
   import { faRightFromBracket, faSignInAlt, faUser } from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa/src/fa.svelte';
   import { Link } from 'svelte-navigator';
-  import logo from '../assets/svelte.png';
+  import logo from '../assets/svelte.svg';
   import { user } from '../stores/user.store';
   import LoginModal from './LoginModal.svelte';
   import ProfileModal from './ProfileModal.svelte';

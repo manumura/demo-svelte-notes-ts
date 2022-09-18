@@ -5,7 +5,7 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 2020,
     tsconfigRootDir: __dirname,
-    project: ['./tsconfig.eslint.json'],
+    project: ['./tsconfig.node.json'],
     extraFileExtensions: ['.svelte'],
   },
   env: {

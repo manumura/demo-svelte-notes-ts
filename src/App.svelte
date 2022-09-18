@@ -72,8 +72,8 @@
   </PrivateRoute>
 </Router>
 
-<style lang="scss">
+<!-- <style lang="scss">
   :root {
     height: 100%;
   }
-</style>
+</style> -->

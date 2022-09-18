@@ -28,7 +28,6 @@
   const saveNotesToStorage = () => {
     // for reactivity purposes
     $notes = $notes;
-
     localStorage.setItem('notes', JSON.stringify($notes));
   };
 
@@ -47,10 +46,10 @@
   $: cursorStyle = $user ? 'pointer' : 'not-allowed';
 </script>
 
-<main class="w-screen m-0 m-auto p-2 box-border">
+<main class="w-screen m-auto p-2 box-border">
   <div class="flex" on:click>
     <div
-      class="card w-96 bg-base-100 shadow-xl mx-2 justify-center items-center bg-gray-300 border-4 border-dashed border-gray-500 hover:bg-gray-200"
+      class="card w-96 shadow-xl mx-2 justify-center items-center bg-gray-300 border-4 border-dashed border-gray-500 hover:bg-gray-200"
       style="cursor: {cursorStyle}"
       on:click={() => {
         openEditNote();

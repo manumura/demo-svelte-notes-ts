@@ -203,7 +203,7 @@
                     id="note-content"
                     name="note-content"
                     rows="3"
-                    class="textarea textarea-primary textarea textarea-bordered w-full sm:text-sm mt-1"
+                    class="textarea textarea-primary textarea-bordered w-full sm:text-sm mt-1"
                     placeholder="Your note content"
                   />
                 </div>
