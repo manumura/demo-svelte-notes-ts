@@ -1,7 +1,8 @@
 <script lang="ts">
+  // import Fa from 'svelte-fa/src/fa.svelte';
+  import Fa from 'svelte-fa';
   import { faStar } from '@fortawesome/free-solid-svg-icons';
   import { createEventDispatcher } from 'svelte';
-  import Fa from 'svelte-fa/src/fa.svelte';
   import { formatDate } from '../lib/utils';
 
   // ---------------------------------------------------------
@@ -25,10 +26,7 @@
   };
 </script>
 
-<div
-  class="card w-96 bg-base-100 shadow-xl mx-2 cursor-style hover:bg-gray-100"
-  on:click
->
+<div class="card w-96 bg-base-100 shadow-xl mx-2 cursor-style hover:bg-gray-100" on:click>
   <div class="card-body">
     <h2 class="card-title">{title}</h2>
     <p>{trimContent(content)}</p>
@@ -41,10 +39,7 @@
         </div>
         <div class="col-span-1">{formatDate(date)}</div>
         <div class="col-span-1 flex justify-end items-center">
-          <div
-            class="cursor-style"
-            on:click|stopPropagation={() => dispatch('toggleFavorite', id)}
-          >
+          <div class="cursor-style" on:click|stopPropagation={() => dispatch('toggleFavorite', id)}>
             <Fa icon={faStar} color={isFavorite ? '#ffda00' : '#afaeae'} />
           </div>
         </div>
@@ -53,7 +48,8 @@
   </div>
 </div>
 
-<style lang="scss">
+<!-- <style lang="scss"> -->
+<style>
   .cursor-style {
     cursor: var(--cursor, 'default');
   }

@@ -113,7 +113,8 @@
     });
   };
 
-  const deleteNote = () => {
+  const deleteNote = (event) => {
+    // console.log('Note ID to delete: ', event.detail.id);
     if (noteIndex !== -1) {
       $notes.splice(noteIndex, 1);
     }

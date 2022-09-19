@@ -19,15 +19,13 @@
 
   <div slot="footer" class="flex">
     <button
+      id="btn-delete"
       class="btn btn-outline btn-accent mx-1"
-      on:click|stopPropagation={() => dispatch('delete', id)}
+      on:click|stopPropagation={() => dispatch('delete', { id })}
     >
       Delete
     </button>
-    <button
-      class="btn btn-outline btn-ghost mx-1"
-      on:click|stopPropagation={() => dispatch('close')}
-    >
+    <button id="btn-cancel" class="btn btn-outline btn-ghost mx-1" on:click|stopPropagation={() => dispatch('close')}>
       Cancel
     </button>
   </div>
