@@ -46,7 +46,7 @@
     "axios": "^1.4.0",
     "daisyui": "^2.51.6",
     "moment": "^2.29.4",
-    "svelte-fa": "^3.0.3",
+    "svelte-fa": "^3.0.4",
     "svelte-navigator": "^3.2.2"
   }
 }
